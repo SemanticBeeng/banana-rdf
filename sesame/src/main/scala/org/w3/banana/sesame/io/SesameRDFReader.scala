@@ -3,9 +3,9 @@ package org.w3.banana.sesame.io
 import java.io._
 import java.util.LinkedList
 
-import com.github.jsonldjava.sesame.SesameJSONLDParser
 import org.openrdf.model._
-import org.openrdf.model.impl.{LinkedHashModel, LiteralImpl, StatementImpl}
+import org.openrdf.model.impl.{LinkedHashModel, SimpleValueFactory}
+import org.openrdf.rio.jsonld.JSONLDParser
 import org.w3.banana._
 import org.w3.banana.io._
 import org.w3.banana.sesame.Sesame
@@ -14,15 +14,17 @@ import scala.util._
 
 trait CollectorFix extends org.openrdf.rio.helpers.StatementCollector {
 
+  val valueFactory = SimpleValueFactory.getInstance()
+
   def ops: RDFOps[Sesame]
 
   override def handleStatement(st: Statement): Unit = st.getObject match {
     case o: Literal if o.getDatatype == null && o.getLanguage == null =>
       super.handleStatement(
-        new StatementImpl(
+        valueFactory.createStatement(
           st.getSubject,
           st.getPredicate,
-          new LiteralImpl(o.getLabel, ops.xsd.string)))
+          valueFactory.createLiteral(o.getLabel, ops.xsd.string)))
     case other =>
       super.handleStatement(st)
   }
@@ -76,6 +78,6 @@ class SesameRDFXMLReader(implicit val ops: RDFOps[Sesame]) extends AbstractSesam
  * loads the whole JSON file into memory, which is memory consumptive
  */
 class SesameJSONLDReader(implicit val ops: RDFOps[Sesame]) extends AbstractSesameReader[JsonLd] {
-  def getParser() = new SesameJSONLDParser
+  def getParser() = new JSONLDParser
 }
 

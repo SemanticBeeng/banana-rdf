@@ -71,13 +71,14 @@ object Dependencies {
    * @see http://www.openrdf.org/
    * @see http://repo1.maven.org/maven2/org/openrdf/sesame/
    */
-  val sesameVersion = "2.9.0"
+  val sesameVersion = "4.1.2"
 
   val sesameQueryAlgebra = "org.openrdf.sesame" % "sesame-queryalgebra-evaluation" % sesameVersion
   val sesameQueryParser = "org.openrdf.sesame" % "sesame-queryparser-sparql" % sesameVersion
   val sesameQueryResult = "org.openrdf.sesame" % "sesame-queryresultio-sparqljson" % sesameVersion
   val sesameRioTurtle = "org.openrdf.sesame" % "sesame-rio-turtle" % sesameVersion
   val sesameRioTrig = "org.openrdf.sesame" % "sesame-rio-trig" % sesameVersion
+  val sesameRioJsonLd = "org.openrdf.sesame" % "sesame-rio-jsonld" % sesameVersion
   val sesameRioRdfxml =  "org.openrdf.sesame" % "sesame-rio-rdfxml" % sesameVersion
   val sesameSailMemory = "org.openrdf.sesame" % "sesame-sail-memory" % sesameVersion
   val sesameSailNativeRdf = "org.openrdf.sesame" % "sesame-sail-nativerdf" % sesameVersion
@@ -88,7 +89,7 @@ object Dependencies {
    * @see https://github.com/jsonld-java/jsonld-java
    * @see http://repo.typesafe.com/typesafe/snapshots/com/github/jsonld-java/jsonld-java-sesame
    */
-  val jsonldJava = "com.github.jsonld-java" % "jsonld-java-sesame" % "0.5.1"
+  val jsonldJava = "com.github.jsonld-java" % "jsonld-java" % "0.12.0"
 
   /**
    * parboiled
@@ -102,7 +103,7 @@ object Dependencies {
    * @see http://jena.apache.org/documentation/serving_data
    * @see http://repo1.maven.org/maven2/org/apache/jena/jena-fuseki/
    */
-  val fusekiVersion =  "3.4.0"
+  val fusekiVersion =  "3.8.0"
   val fuseki = "org.apache.jena" % "apache-jena-fuseki" % fusekiVersion
   val fusekiServer = "org.apache.jena" % "jena-fuseki-server" % fusekiVersion
 

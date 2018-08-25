@@ -40,7 +40,7 @@ object PlantainTurtleReader extends RDFReader[Plantain, Try, Turtle] {
         case uri: sesame.URI         => URI(uri.toString)
         case literal: sesame.Literal => literal.getLanguage match {
           case null => makeLiteral(literal.stringValue, Uri(literal.getDatatype.toString))
-          case lang => makeLangTaggedLiteral(literal.stringValue, lang)
+          case lang => makeLangTaggedLiteral(literal.stringValue, if (lang.isPresent) lang.get() else "") // #todo
         }
       }
       graph += (s, p, o)

@@ -1,15 +1,15 @@
 package org.w3.banana.sesame.io
 
 import java.io.{OutputStream, Writer}
-import java.net.{URI => jURI}
+import java.net.{URI ⇒ jURI}
 
-import com.github.jsonldjava.sesame.SesameJSONLDWriter
-import org.openrdf.model.{Statement, URI => sURI}
+import org.openrdf.model.{IRI, Statement}
 import org.openrdf.rio.RDFWriter
 import org.openrdf.rio.helpers.{JSONLDMode, JSONLDSettings}
-import org.openrdf.rio.rdfxml.{RDFXMLWriter => SRdfXmlWriter}
-import org.openrdf.rio.turtle.{TurtleWriter => STurtleWriter}
-import org.openrdf.rio.trig.{TriGWriter => STriGWriter}
+import org.openrdf.rio.jsonld.JSONLDWriter
+import org.openrdf.rio.rdfxml.{RDFXMLWriter ⇒ SRdfXmlWriter}
+import org.openrdf.rio.turtle.{TurtleWriter ⇒ STurtleWriter}
+import org.openrdf.rio.trig.{TriGWriter ⇒ STriGWriter}
 import org.w3.banana.io._
 
 /** Typeclass that reflects a Sesame String that can be used to construct an [[RDFWriter]]. */
@@ -41,7 +41,7 @@ object SesameSyntax {
   implicit val Turtle: SesameSyntax[Turtle] = new SesameSyntax[Turtle] {
     import org.w3.banana.sesame.Sesame.ops.makeUri
     // Sesame's parser does not handle relative URI, but let us override the behavior :-)
-    def relativize(uri: sURI, baseURI: jURI): Either[sURI, String] = {
+    def relativize(uri: IRI, baseURI: jURI): Either[IRI, String] = {
       val juri = new jURI(uri.toString)
       val relative = baseURI.relativize(juri).toString
 
@@ -51,7 +51,7 @@ object SesameSyntax {
     def rdfWriter(os: OutputStream, base: String) = new STurtleWriter(os) {
       val baseUri = new jURI(base)
 
-      override def writeURI(uri: sURI): Unit = {
+      override def writeURI(uri: IRI): Unit = {
         val uriToWrite = relativize(uri, baseUri)
         uriToWrite.fold(
           super.writeURI,
@@ -63,7 +63,7 @@ object SesameSyntax {
     def rdfWriter(wr: Writer, base: String) = new STurtleWriter(wr) {
       val baseUri = new jURI(base)
 
-      override def writeURI(uri: sURI): Unit = {
+      override def writeURI(uri: IRI): Unit = {
         val uriToWrite = relativize(uri, baseUri)
         uriToWrite.fold(
           super.writeURI,
@@ -122,7 +122,7 @@ object SesameSyntax {
 
     def rdfWriter(os: OutputStream, base: String) = {
       val baseUri = URI(base)
-      val writer = new SesameJSONLDWriter(os) {
+      val writer = new JSONLDWriter(os) {
         override def handleStatement(st: Statement) = {
           super.handleStatement(st.relativizeAgainst(baseUri))
         }
@@ -132,7 +132,7 @@ object SesameSyntax {
     }
     def rdfWriter(wr: Writer, base: String) = {
       val baseUri = URI(base)
-      val writer = new SesameJSONLDWriter(wr)  {
+      val writer = new JSONLDWriter(wr)  {
         override def handleStatement(st: Statement) = {
           super.handleStatement(st.relativizeAgainst(baseUri))
         }

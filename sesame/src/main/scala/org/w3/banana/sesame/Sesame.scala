@@ -1,6 +1,6 @@
 package org.w3.banana.sesame
 
-import org.openrdf.model.{ BNode => SesameBNode, Literal => SesameLiteral, URI => SesameURI, _ }
+import org.openrdf.model.{BNode ⇒ SesameBNode, Literal ⇒ SesameLiteral, URI ⇒ SesameURI, _}
 import org.openrdf.query._
 import org.openrdf.query.parser._
 import org.w3.banana._
@@ -12,7 +12,7 @@ trait Sesame extends RDF {
   type Graph = Model
   type Triple = Statement
   type Node = Value
-  type URI = SesameURI
+  type URI = IRI
   type BNode = SesameBNode
   type Literal = SesameLiteral
   type Lang = String

@@ -11,7 +11,7 @@ import scala.collection.JavaConverters._
 
 class SesameOps extends RDFOps[Sesame] with SesameMGraphOps with DefaultURIOps[Sesame] {
 
-  val valueFactory: ValueFactory = ValueFactoryImpl.getInstance()
+  val valueFactory: ValueFactory = SimpleValueFactory.getInstance()
 
   // graph
 
@@ -50,20 +50,24 @@ class SesameOps extends RDFOps[Sesame] with SesameMGraphOps with DefaultURIOps[S
    * this constraint becomes relevant only when you add the URI to a Sesame store
    */
   def makeUri(iriStr: String): Sesame#URI = {
-    try {
-      new URIImpl(iriStr)
-    } catch {
+    try
+      SimpleValueFactory.getInstance().createIRI(iriStr)
+    catch {
       case iae: IllegalArgumentException =>
-        new URI {
+        new SimpleIRI {
           override def equals(o: Any): Boolean = o.isInstanceOf[URI] && o.asInstanceOf[URI].toString == iriStr
-          def getLocalName: String = iriStr
-          def getNamespace: String = ""
+
+          override def getLocalName: String = iriStr
+
+          override def getNamespace = ""
+
           override def hashCode: Int = iriStr.hashCode
+
           override def toString: String = iriStr
-          def stringValue: String = iriStr
+
+          override def stringValue: String = iriStr
         }
     }
-
   }
 
   def fromUri(node: Sesame#URI): String = node.toString
@@ -92,7 +96,7 @@ class SesameOps extends RDFOps[Sesame] with SesameMGraphOps with DefaultURIOps[S
     new LangLiteral(lexicalForm, lang)
 
   def fromLiteral(literal: Sesame#Literal): (String, Sesame#URI, Option[Sesame#Lang]) =
-    (literal.getLabel, literal.getDatatype, Option(literal.getLanguage))
+    (literal.getLabel, literal.getDatatype, if (literal.getLanguage.isPresent) Some(literal.getLanguage.get()) else None)
 
   /**
     *  language tags are cases insensitive according to

@@ -7,7 +7,7 @@ import scala.util.Try
 
 class JenaTurtleTest extends TurtleTestSuite[Jena, Try]
 
-class JenaTriGTest extends TriGTestSuite[Jena, Try]
+// #todo class JenaTriGTest extends TriGTestSuite[Jena, Try]
 
 class JenaPrefixTest extends PrefixTestSuite[Jena, Try]
 
