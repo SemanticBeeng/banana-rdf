@@ -63,6 +63,10 @@ class SesameTurtleReader(implicit val ops: RDFOps[Sesame]) extends AbstractSesam
   def getParser() = new org.openrdf.rio.turtle.TurtleParser
 }
 
+class SesameTrigReader(implicit val ops: RDFOps[Sesame]) extends AbstractSesameReader[TriG] {
+  def getParser() = new org.openrdf.rio.trig.TriGParser()
+}
+
 class SesameRDFXMLReader(implicit val ops: RDFOps[Sesame]) extends AbstractSesameReader[RDFXML] {
   def getParser() = new org.openrdf.rio.rdfxml.RDFXMLParser
 }

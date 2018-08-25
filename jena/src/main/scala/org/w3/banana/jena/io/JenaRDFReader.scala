@@ -70,6 +70,8 @@ object JenaRDFReader {
 
   implicit def turtleReader()(implicit ops: JenaOps): RDFReader[Jena, Try, Turtle] = makeRDFReader[Turtle](ops, Lang.TURTLE)
 
+  implicit def trigReader()(implicit ops: JenaOps): RDFReader[Jena, Try, TriG] = makeRDFReader[TriG](ops, Lang.TRIG)
+
   implicit def n3Reader()(implicit ops: JenaOps): RDFReader[Jena, Try, N3] = makeRDFReader[N3](ops, Lang.N3)
 
   implicit def jsonLdReader()(implicit ops: JenaOps): RDFReader[Jena,Try,JsonLd] = makeRDFReader[JsonLd](ops,Lang.JSONLD)

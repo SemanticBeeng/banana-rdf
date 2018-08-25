@@ -11,6 +11,7 @@ trait IOExampleDependencies
   with RDFOpsModule
   with TurtleReaderModule
   with TurtleWriterModule
+  with TrigWriterModule
   with RDFXMLWriterModule
 
 /* Here is an example doing some IO. Read below to see what's
@@ -56,6 +57,9 @@ trait IOExample extends IOExampleDependencies {
 
     val graphAsTurtleString = turtleWriter.asString(graph10Triples, base = timblCard, Set(foaf, rdf)) getOrElse sys.error("coudn't serialize the graph")
     println(graphAsTurtleString)
+
+    val graphAsTrigString = trigWriter.asString(graph10Triples, base = timblCard, Set(foaf, rdf)) getOrElse sys.error("coudn't serialize the graph")
+    println(graphAsTrigString)
   }
 
 }

@@ -153,6 +153,7 @@ lazy val sesame = Project("sesame", file("sesame"), settings = commonSettings)
       sesameQueryParser,
       sesameQueryResult,
       sesameRioTurtle,
+      sesameRioTrig,
       sesameRioRdfxml,
       sesameSailMemory,
       sesameSailNativeRdf,

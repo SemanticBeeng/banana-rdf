@@ -9,6 +9,7 @@ import org.openrdf.rio.RDFWriter
 import org.openrdf.rio.helpers.{JSONLDMode, JSONLDSettings}
 import org.openrdf.rio.rdfxml.{RDFXMLWriter => SRdfXmlWriter}
 import org.openrdf.rio.turtle.{TurtleWriter => STurtleWriter}
+import org.openrdf.rio.trig.{TriGWriter => STriGWriter}
 import org.w3.banana.io._
 
 /** Typeclass that reflects a Sesame String that can be used to construct an [[RDFWriter]]. */
@@ -70,6 +71,44 @@ object SesameSyntax {
         )
       }
     }
+  }
+
+  /**
+    * #todo
+    */
+  implicit val Trig: SesameSyntax[TriG] = new SesameSyntax[TriG] {
+//    import org.w3.banana.sesame.Sesame.ops.makeUri
+//    // Sesame's parser does not handle relative URI, but let us override the behavior :-)
+//    def relativize(uri: sURI, baseURI: jURI): Either[sURI, String] = {
+//      val juri = new jURI(uri.toString)
+//      val relative = baseURI.relativize(juri).toString
+//
+//      if (relative.length > 0) Left(makeUri(relative)) else Right(relative)
+//    }
+
+    def rdfWriter(os: OutputStream, base: String) = new STriGWriter(os) /*{
+      val baseUri = new jURI(base)
+
+      override def writeURI(uri: sURI): Unit = {
+        val uriToWrite = relativize(uri, baseUri)
+        uriToWrite.fold(
+          super.writeURI,
+          s => writer.write("<" + s + ">")
+        )
+      }
+    }*/
+
+    def rdfWriter(wr: Writer, base: String) = new STriGWriter(wr) /*{
+      val baseUri = new jURI(base)
+
+      override def writeURI(uri: sURI): Unit = {
+        val uriToWrite = relativize(uri, baseUri)
+        uriToWrite.fold(
+          super.writeURI,
+          s => writer.write("<" + s + ">")
+        )
+      }
+    }*/
   }
 
   implicit val jsonLdCompacted: SesameSyntax[JsonLdCompacted] = jsonldSyntax(JSONLDMode.COMPACT)

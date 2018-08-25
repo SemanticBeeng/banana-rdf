@@ -8,6 +8,8 @@ import scala.util.Try
 
 class SesameTurtleTests extends TurtleTestSuite[Sesame, Try]
 
+class SesameTriGTests extends TriGTestSuite[Sesame, Try]
+
 class SesamePrefixTest extends PrefixTestSuite[Sesame, Try]
 
 class SesameNTripleReaderTestSuite extends NTriplesReaderTestSuite[Sesame]
