@@ -84,34 +84,6 @@ object JenaRDFWriter {
   }
 
   val trigWriter: RDFWriter[Jena, Try, TriG] = makeRDFWriter[TriG](RDFLanguages.TRIG)
-//  val trigWriter: RDFWriter[Jena, Try, TriG] = new RDFWriter[Jena, Try, TriG] {
-//
-//    // with the turtle writer we pass it  relative graph as that seems to stop the parser from adding the
-//    // @base statement at the top!
-//    def write(graph: Jena#Graph, os: OutputStream, base: String, prefixes: Set[Prefix[Jena]]): Try[Unit] = Try {
-//      val relativeGraph = graph.relativize(URI(base))
-//
-//      val mapping: PrefixMapping = relativeGraph.getPrefixMapping
-//      prefixes.foreach { p =>
-//        mapping.setNsPrefix(p.prefixName, p.prefixIri)
-//      }
-//
-//      RDFDataMgr.write(os, relativeGraph, JenaLang.TRIG)
-//    }
-//
-//    def asString(graph: Jena#Graph, base: String, prefixes: Set[Prefix[Jena]]): Try[String] = Try {
-//      val result = new StringWriter()
-//      val relativeGraph = graph.relativize(URI(base))
-//
-//      val mapping: PrefixMapping = relativeGraph.getPrefixMapping
-//      prefixes.foreach {p =>
-//        mapping.setNsPrefix(p.prefixName, p.prefixIri)
-//      }
-//
-//      RDFDataMgr.write(result, relativeGraph, JenaLang.TRIG)
-//      result.toString()
-//    }
-//  }
 
   val n3Writer: RDFWriter[Jena, Try, N3] = makeRDFWriter[N3](RDFLanguages.N3)
 
