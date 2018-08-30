@@ -8,7 +8,7 @@ object Dependencies {
     * @see http://scalaz.org
     * @see http://repo1.maven.org/maven2/org/scalaz/
     */
-  val scalaz = "org.scalaz" %% "scalaz-core" % "7.2.8"
+  val scalaz = "org.scalaz" %% "scalaz-core" % "7.2.26"
 
   /**
    * joda-Time
