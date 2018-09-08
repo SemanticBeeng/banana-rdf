@@ -151,7 +151,6 @@ object DCPrefix {
 
 class DCPrefix[Rdf <: RDF](ops: RDFOps[Rdf]) extends PrefixBuilder("dc", "http://purl.org/dc/elements/1.1/")(ops) {
   val language = apply("language")
-
 }
 
 object DCTPrefix {
@@ -160,6 +159,8 @@ object DCTPrefix {
 
 class DCTPrefix[Rdf <: RDF](ops: RDFOps[Rdf]) extends PrefixBuilder("dc", "http://purl.org/dc/terms/")(ops) {
   val title = apply("title")
+  val description = apply("description")
+  val identifier = apply("identifier")
 
 }
 

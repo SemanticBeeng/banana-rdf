@@ -144,6 +144,7 @@ lazy val jena = Project("jena", file("jena"), settings = commonSettings)
     name := "banana-jena",
     libraryDependencies ++= Seq(jenaLibs, commonsLogging, aalto )
   ).dependsOn(rdfJVM, ntriplesJVM, rdfTestSuiteJVM % "test->compile")
+  .aggregate(ntriplesJVM)
 
 lazy val sesame = Project("sesame", file("sesame"), settings = commonSettings)
   .settings(
